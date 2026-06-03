@@ -51,8 +51,9 @@ Each environment is configured by one YAML file in [`config/environments/`](conf
 ## Quick Run
 
 Try following prompts in your claude code.
+Verified using: **Opus 4.8 (1M context)**.
 
-> When running Claude Code for these skills/prompts, use effort level to **`medium`** (balanced approach for speed vs performance).
+> When running Claude Code for these skills/prompts, use effort level to **`low`/`medium`**.
 
 Each block below is one or more **natural-language prompts to paste into Claude Code** — not shell commands. Claude Code loads the matching skill from the table further down to execute them. Estimates are for *cached* re-runs; first runs are typically 5–10x longer due to model and Isaac Sim asset downloads.
 
@@ -95,7 +96,7 @@ Stop all
 Create a new i4h environment for surgical tool sorting using G1 based on scissor_pick_and_place.
 
 # Edit Scene (~4 mins)
-Launch the new env in edit mode.
+Launch the new env in edit mode.  Edit in live mode only without restart.
   - Add new red cube with gravity to stay on table.
   - Shift G1 to the opposite side of the table and 4 ft away from table.
   - Add a room camera based on perspective view.
@@ -104,6 +105,7 @@ Launch the new env in edit mode.
 # Teleop/Finetune/Eval (~20 mins)
 Add room camera input to be part of dataset + policy.
 Change policy task description to "Walk towards surgical table"
+Run zero action smoke to verify all good.
 
 Run teleop for 5 episodes.
 Mimic 3 more episodes and visualize my dataset.
