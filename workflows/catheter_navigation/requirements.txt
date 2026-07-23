@@ -4,7 +4,7 @@
 #
 # Notes:
 # - Torch pins use CUDA 12.1 wheels for host installs.
-# - Tutorial packages are pinned to an internal commit SHA until public release.
+# - Tutorial packages are pinned to public commit SHAs.
 
 --extra-index-url https://download.pytorch.org/whl/cu121
 
@@ -24,5 +24,5 @@ torch==2.5.1+cu121
 torchvision==0.20.1+cu121
 
 git+https://github.com/isaac-for-healthcare/i4h-sensor-simulation.git@945948d79b54919ee1d5218f89362cbd501547a9#subdirectory=fluoro-simulator
-git+https://github.com/isaac-for-healthcare/i4h-tutorials-internal.git@fd244fd52f1072106cf182dca9de3f5d7a9970b8#subdirectory=vasculature-digital-twin
-git+https://github.com/isaac-for-healthcare/i4h-tutorials-internal.git@fd244fd52f1072106cf182dca9de3f5d7a9970b8#subdirectory=catheter-vasculature-solver
+git+https://github.com/isaac-for-healthcare/i4h-tutorials.git@6232f84e5c6878f5df3012b97172d6a64015ae5f#subdirectory=vasculature-digital-twin
+git+https://github.com/isaac-for-healthcare/i4h-tutorials.git@6232f84e5c6878f5df3012b97172d6a64015ae5f#subdirectory=catheter-vasculature-solver

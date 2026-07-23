@@ -29,11 +29,9 @@ ARG PIP_TRUSTED_HOST
 ARG FLUOROSIM_PIP_SPEC=git+https://github.com/isaac-for-healthcare/i4h-sensor-simulation.git@945948d79b54919ee1d5218f89362cbd501547a9#subdirectory=fluoro-simulator
 ARG TORCH_PIP_SPEC=torch==2.5.1+cu121
 ARG TORCHVISION_PIP_SPEC=torchvision==0.20.1+cu121
-# Temporary internal pin: tutorial packages currently come from a private repo.
-# Use SSH specs for SQA/internal builds (with --ssh forwarding) and switch these
-# to public HTTPS refs once tutorials are publicly released.
-ARG VDT_PIP_SPEC=git+ssh://git@github.com/isaac-for-healthcare/i4h-tutorials-internal.git@fd244fd52f1072106cf182dca9de3f5d7a9970b8#subdirectory=vasculature-digital-twin
-ARG SOLVER_PIP_SPEC=git+ssh://git@github.com/isaac-for-healthcare/i4h-tutorials-internal.git@fd244fd52f1072106cf182dca9de3f5d7a9970b8#subdirectory=catheter-vasculature-solver
+# Tutorial packages from the public i4h-tutorials repo (HTTPS; no SSH needed).
+ARG VDT_PIP_SPEC=git+https://github.com/isaac-for-healthcare/i4h-tutorials.git@6232f84e5c6878f5df3012b97172d6a64015ae5f#subdirectory=vasculature-digital-twin
+ARG SOLVER_PIP_SPEC=git+https://github.com/isaac-for-healthcare/i4h-tutorials.git@6232f84e5c6878f5df3012b97172d6a64015ae5f#subdirectory=catheter-vasculature-solver
 ARG DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-c"]
@@ -93,11 +91,8 @@ RUN --mount=type=cache,target=/root/.cache/pip,id=i4h-cath-pip-cache \
     pip install --force-reinstall --no-deps --index-url https://download.pytorch.org/whl/cu121 "${TORCH_PIP_SPEC}" "${TORCHVISION_PIP_SPEC}" && \
     pip install --no-deps "${FLUOROSIM_PIP_SPEC}"
 
-# Private tutorial packages are installed over SSH.
-# Build with: docker build --ssh default ...
-RUN --mount=type=ssh --mount=type=cache,target=/root/.cache/pip,id=i4h-cath-pip-cache \
-    mkdir -p -m 0700 /root/.ssh && \
-    ssh-keyscan -t rsa,ed25519 github.com >> /root/.ssh/known_hosts && \
+# Public tutorial packages (vasculature digital twin + catheter solver).
+RUN --mount=type=cache,target=/root/.cache/pip,id=i4h-cath-pip-cache \
     pip install --no-deps "${VDT_PIP_SPEC}" && \
     pip install --no-deps "${SOLVER_PIP_SPEC}"
 
